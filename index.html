@@ -1,0 +1,95 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width">
+        <title>PicoWorld</title>
+        <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,600" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="assets/js/libs/three.min.js"></script>
+        <script type="text/javascript" src="assets/js/libs/tween.min.js"></script>
+        <script type="text/javascript" src="assets/js/threemaze.js"></script>
+        <script type="text/javascript" src="assets/js/threemaze.generate.js"></script>
+        <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+        <div style="float:left">
+            <script type="text/javascript">
+                window.onload = function()
+                {
+                    var wrapper = document.querySelector('.three');
+                    var button = document.querySelector('.generate');
+                    new ThreeMaze(wrapper, button);
+                }
+            </script>
+        </div>
+        <script type="text/javascript" src="assets/js/picobot_engine.js"></script>
+        <script language="JavaScript" type="text/javascript">
+
+            // disable key scrolling
+            window.addEventListener("keydown", function(e) {
+                // space and arrow keys
+                if([37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+                    e.preventDefault();
+                }
+            }, false);
+        </script>
+    </head>
+	<body style="background: url("space-background.jpg");">
+        <div class="three">
+            <div class="button-wrapper">
+                <button class="generate">
+                    Next
+                </button>
+            </div>
+            <div class="controls" style="float: right; width: 45%; margin: 100px 0px 0px 0px;">
+        <td> <!-- right-hand side -->
+            <form name="calc" method="post" action="https://www.cs.hmc.edu/picobot/picouploader.py">
+                <table border="0">
+                    <tbody>
+                        <tr><td><center><b>Rules</b></center>
+                                                          
+                        <textarea name="rules" id="rules" rows="10" cols="45" style="font-family: courier;">#&#13;&#10;# Hashtag lines are # optional comments &#13;&#10;# state 0 with nothing N: &#13;&#10;# go one step N &#13;&#10;0 x*** -&gt; N 0 &#13;&#10;# state 0 with something to the N: &#13;&#10;# go W + into st 1 &#13;&#10;# ** This will crash if &#13;&#10;# picobot has a wall to the W! ** &#13;&#10;0 N*** -&gt; W 1 &#13;&#10;# state 1 with nothing to the S: 
+                        # go one step S &#13;&#10;1 ***x -&gt; S 1 &#13;&#10;# state 1 with something to the S: &#13;&#10;# stay put + into state 0 &#13;&#10;1 ***S -&gt; X 0   
+                        </textarea>
+                        </td>
+                            
+                        </tr>
+                        <tr>
+                            <td>
+                                <center style="color: white">
+                              Be sure to hit "Enter" after making changes.
+                                </center>
+                            </td>
+                                
+                        </tr>
+                    </tbody>
+                </table>
+            </form>
+        </td>
+       </tr>
+       </tbody>
+       </table>
+       </div>
+     </div>
+        
+        <div class="caption">
+            <button name="add" value="Enter" onclick="stop();document.getElementById('mesg').value = computeRules(document.calc.rules.value);">
+                Enter
+            </button>
+            <input name="mapi" value="0" type="hidden"> 
+            <button name="Go" value="Go" onclick="go();">
+                Go!
+            </button>
+            <button name="Stop" value="Stop" onclick="stop();">
+                Stop
+            </button>
+            <button name="Step" value="Step" onclick="update();">
+                Step
+            </button>
+            <button name="Reset" value="Reset" onclick="stop();fullReset();">
+                Reset
+            </button>
+            <textarea readonly="readonly" id="mesg" name="mesg" rows="2" cols="60" style="font-family: courier;"> </textarea>
+            <!--Use <strong>arrow keys</strong> to move, and the <strong>mouse</strong> to rotate the view-->
+        </div>
+
+	</body>
+</html>
